@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: myblog-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: myblog
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ../../scripts/migrate.sql:/docker-entrypoint-initdb.d/migrate.sql
+    networks:
+      - myblog-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: myblog-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - myblog-network
+
+  backend:
+    build:
+      context: ../..
+      dockerfile: deployments/docker/Dockerfile
+    container_name: myblog-backend
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      APP_ENV: dev
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - myblog-network
+
+volumes:
+  mysql-data:
+  redis-data:
+
+networks:
+  myblog-network:
+    driver: bridge

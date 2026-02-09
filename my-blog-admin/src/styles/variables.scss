@@ -1,0 +1,60 @@
+// 简约办公风格主题变量
+:root {
+  // 主题色
+  --primary-color: #1890ff;
+  --success-color: #52c41a;
+  --warning-color: #faad14;
+  --danger-color: #f5222d;
+  --info-color: #13c2c2;
+
+  // 辅助色
+  --color-blue: #40a9ff;
+  --color-purple: #722ed1;
+  --color-cyan: #13c2c2;
+  --color-orange: #fa8c16;
+  --color-green: #73d13d;
+
+  // 文字颜色
+  --text-primary: #262626;
+  --text-regular: #595959;
+  --text-secondary: #8c8c8c;
+  --text-placeholder: #bfbfbf;
+
+  // 背景颜色
+  --bg-page: #f5f5f5;
+  --bg-container: #ffffff;
+  --bg-hover: #e6f7ff;
+
+  // 边框颜色
+  --border-base: #d9d9d9;
+  --border-light: #f0f0f0;
+  --border-primary: #1890ff;
+
+  // 圆角
+  --border-radius-base: 2px;
+  --border-radius-small: 1px;
+  --border-radius-large: 4px;
+  --border-radius-extra-large: 6px;
+
+  // 阴影
+  --box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --box-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --box-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  // 渐变
+  --gradient-primary: linear-gradient(135deg, #1890ff, #40a9ff);
+  --gradient-success: linear-gradient(135deg, #52c41a, #73d13d);
+  --gradient-info: linear-gradient(135deg, #13c2c2, #36cfc9);
+  --gradient-warm: linear-gradient(135deg, #faad14, #ffc53d);
+
+  // 布局尺寸
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 64px;
+  --header-height: 60px;
+  --tags-view-height: 50px;
+
+  // 过渡
+  --transition-base: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --transition-fast: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  --transition-slow: all 0.4s cubic-bezier(0.645, 0.045, 0.355, 1);
+}

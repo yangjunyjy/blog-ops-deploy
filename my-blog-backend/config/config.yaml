@@ -1,0 +1,189 @@
+app:
+  name: my-blog-backend
+  version: 1.0.0
+  env: development
+  debug: true
+  timezone: Asia/Shanghai
+
+emailServer:
+  smtpServerConfig:
+    smtpHost: "smtp.189.cn"
+    smtpPort: 465
+    fromEmail: "19856610756@189.cn"
+    fromName: "19856610756@189.cn"
+    password: "Rl#8Ac(7q=7Pp$4O"
+    subject: "您的验证码"
+    poolSize: 3
+  # codeConfig:
+  #   length: 6
+  #   charset: "0123456789"
+  #   expiresIn: 5m
+
+server:
+  address: "0.0.0.0"
+  port: "8081"
+  mode: debug
+  read_timeout: 60s
+  write_timeout: 60s
+  idle_timeout: 120s
+  shutdown_timeout: 30s
+  cors:
+    allow_origins:
+      - "*"
+    allow_methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - OPTIONS
+    allow_headers:
+      - Origin
+      - Content-Type
+      - Authorization
+      - X-Requested-With
+    allow_credentials: false
+    max_age: 86400
+  tls:
+    enabled: false
+    cert_file: ""
+    key_file: ""
+  health_check:
+    enabled: true
+    port: "8081"
+
+auth:
+  jwtSecret: "your-secret-key-change-in-production"
+  jwtExpire: "24h"
+  jwtRefreshExpire: "168h"
+  bcryptCost: 10
+  
+  # TOTP配置（基于时间的动态Token）
+  totp:
+    enabled: false  # 是否启用TOTP动态Token
+    secret: "your-global-totp-secret-change-in-production"  # 全局共享密钥
+    timeStep: 30  # 时间步长（秒），通常为30秒
+    windowSize: 1  # 验证窗口大小，允许的时间偏差窗口数
+
+# Session 配置
+session:
+  cookieName: "session_id"
+  maxAge: 86400  # 24小时
+  path: "/"
+  domain: ""
+  secure: false
+  httpOnly: true
+
+# 一次性Token配置
+onceToken:
+  expireTime: 300  # 5分钟
+
+database:
+  type: mysql
+  host: "192.168.91.200"
+  port: 3306
+  database: myblog
+  username: root
+  password: 5201314yjYJ,
+  charset: "utf8mb4"
+  options: ""
+  pool:
+    max_idle_conns: 10
+    max_open_conns: 100
+    conn_max_lifetime: 3600s
+    conn_max_idle_time: 600s
+  read_replica:
+    enabled: false
+    host: ""
+    port: 0
+    database: ""
+    username: ""
+    password: ""
+
+
+redis:
+  enabled: true
+  addresses:
+    - 192.168.91.200:6379
+  password: "123456"
+  db: 0
+  pool_size: 10
+  min_idle_conns: 5
+  max_retries: 3
+  dial_timeout: 5s
+  read_timeout: 3s
+  write_timeout: 3s
+  pool_timeout: 4s
+  cluster_mode: false
+
+# 日志配置
+log:
+  devolpment: true                 # 开发模式
+  level: "debug"                   # 日志级别(debug/info/warn/error)
+  encoding: "console"              # 输出格式(console/json)
+  directory: "../logs"              # 日志目录
+  fileName: "app.log"              # 日志文件名
+  maxSize: 100                     # 文件最大大小(MB)
+  maxBackups: 7                    # 保留旧文件个数
+  maxAge: 30                       # 保留旧文件天数
+  compress: true                   # 是否压缩旧文件
+  enableConsole: true              # 启用控制台输出
+  fileConsole: true                # 启用文件输出
+  enableCaller: true               # 添加调用者信息
+
+features:
+  enable_audit_log: true
+  enable_metrics: true
+  enable_rate_limit: false
+  enable_cache: true
+  enable_email_notify: false
+
+comment:
+  enabled: true                
+  autoApprove: true          
+  
+  # 敏感词配置
+  sensitiveWordCheck: true   # 是否启用敏感词检测
+  sensitiveWords:             # 敏感词列表（使用 | 分隔，支持环境变量注入）
+    - "逼"
+    - "屌"
+    - "操你妈"
+  
+  # 多级评论配置
+  maxLevel: 3                 # 最大评论层级
+  maxDepth: 3                 # 最大回复深度（针对单条评论的回复链）
+  replyEnabled: true          # 是否允许回复评论
+  
+  # 限制配置
+  maxLength: 1000             # 单条评论最大长度（字符数）
+  minLength: 1                # 单条评论最小长度（字符数）
+  maxPerDay: 50              # 每人每天最大评论数
+  maxPerArticle: 10          # 每人每篇文章最大评论数
+
+# 文件上传配置
+upload:
+  type: local                # 上传方式: local 或 remote
+  urlPrefix: "http://localhost:8081"  # URL前缀，返回前端时自动拼接完整URL
+
+  # 本地上传配置
+  local:
+    uploadPath: "./uploads"          # 上传目录
+    allowedExts:                      # 允许的文件扩展名
+      - ".jpg"
+      - ".jpeg"
+      - ".png"
+      - ".gif"
+      - ".bmp"
+      - ".webp"
+      - ".svg"
+    maxSize: 10485760                # 最大文件大小(10MB)
+
+  # 远程上传配置 (如阿里云OSS、腾讯云COS等)
+  remote:
+    provider: "oss"                 # 服务提供商: oss, cos, qiniu
+    endpoint: ""                     # 服务端点
+    accessKey: ""                    # 访问密钥
+    secretKey: ""                    # 密钥
+    bucket: ""                       # 存储桶名称
+    region: ""                       # 区域
+    cdn: ""                          # CDN域名
+
